@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - feature/**
+  pull_request:
+    branches:
+      - develop
+jobs:
+  kotlin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+      - name: Lint check
+        run: ./gradlew lint
+      - name: Build
+        run: ./gradlew assemble
+  swift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: '5.10'
+      - name: Run SwiftLint
+        uses: norio-nomura/action-swiftlint@3.2.1
