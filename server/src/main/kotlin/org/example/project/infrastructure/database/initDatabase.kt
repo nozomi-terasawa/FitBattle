@@ -4,9 +4,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-
 fun initDatabase() {
-
     val url = "jdbc:postgresql://localhost:5432/test_database"
 
     Database.connect(
@@ -18,9 +16,7 @@ fun initDatabase() {
 
     transaction {
         SchemaUtils.create(
-            UserTable
+            UserTable,
         )
     }
-
-
 }

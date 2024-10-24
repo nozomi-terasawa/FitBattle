@@ -21,13 +21,11 @@ import org.example.project.usecases.UserDeleteUseCase
 import org.example.project.usecases.UserLogOutUseCase
 import org.example.project.usecases.UserLoginUseCase
 
-
 fun main(args: Array<String>) {
     EngineMain.main(args)
 }
 
 fun Application.module() {
-
     val secret = environment.config.property("jwt.secret").getString()
     val issuer = environment.config.property("jwt.issuer").getString()
     val audience = environment.config.property("jwt.audience").getString()
@@ -71,7 +69,7 @@ fun Application.module() {
             userCreateUseCase,
             userLoginUseCase,
             userLogoutUseCase,
-            userDeleteUseCase
+            userDeleteUseCase,
         )
         locationRoutes()
     }

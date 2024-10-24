@@ -8,17 +8,17 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-
-class TestUserRepositoryImpl() : UserRepository {
+class TestUserRepositoryImpl : UserRepository {
     override fun create(user: User): Int {
         try {
-            var userId :Int = -1
+            var userId: Int = -1
             transaction {
-                userId = UserTable.insert {
-                    it[name] = user.name
-                    it[email] = user.email
-                    it[passwordHash] = user.passwordHash
-                }[UserTable.id]
+                userId =
+                    UserTable.insert {
+                        it[name] = user.name
+                        it[email] = user.email
+                        it[passwordHash] = user.passwordHash
+                    }[UserTable.id]
             }
             return userId
         } catch (e: Exception) {
@@ -27,17 +27,18 @@ class TestUserRepositoryImpl() : UserRepository {
         }
     }
 
-    override fun login(email: String): User {
-        return try {
-            val value = transaction {
-                val query = UserTable.email eq email
-                UserTable.selectAll().where(query).singleOrNull()
-            }
+    override fun login(email: String): User =
+        try {
+            val value =
+                transaction {
+                    val query = UserTable.email eq email
+                    UserTable.selectAll().where(query).singleOrNull()
+                }
             if (value != null) {
                 User(
                     value[UserTable.name],
                     value[UserTable.email],
-                    value[UserTable.passwordHash]
+                    value[UserTable.passwordHash],
                 )
             } else {
                 println("No user found with email: $email")
@@ -47,7 +48,6 @@ class TestUserRepositoryImpl() : UserRepository {
             println("Error during login: ${e.message}")
             User() // デフォルトの User を返すか、適切なエラーを返す
         }
-    }
 
     override fun logout() {
         println("User logged out")

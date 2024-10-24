@@ -7,11 +7,9 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 
-
 fun Routing.locationRoutes() {
-
     route("/api/v1/location") {
-        authenticate("auth-jwt"){
+        authenticate("auth-jwt") {
             get("/geofences") {
                 call.respondText("Location")
             }
@@ -19,5 +17,5 @@ fun Routing.locationRoutes() {
                 call.respondText("Update")
             }
         }
-   }
+    }
 }

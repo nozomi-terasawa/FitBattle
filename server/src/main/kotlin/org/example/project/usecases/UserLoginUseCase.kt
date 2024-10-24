@@ -6,10 +6,9 @@ import org.example.project.infrastructure.UserLoginRes
 import org.example.project.infrastructure.auth.AuthJwt
 import java.security.MessageDigest
 
-
 class UserLoginUseCase(
     private val userRepository: UserRepository,
-    private val authJwt: AuthJwt
+    private val authJwt: AuthJwt,
 ) {
     operator fun invoke(user: UserLoginReq): UserLoginRes {
         fun String.hashWithSHA256(): String {
@@ -26,7 +25,7 @@ class UserLoginUseCase(
             UserLoginRes(
                 name = value.name,
                 email = value.email,
-                token = token
+                token = token,
             )
         } else {
             UserLoginRes()

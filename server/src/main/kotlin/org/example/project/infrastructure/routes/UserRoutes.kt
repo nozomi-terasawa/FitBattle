@@ -15,7 +15,6 @@ import org.example.project.usecases.UserDeleteUseCase
 import org.example.project.usecases.UserLogOutUseCase
 import org.example.project.usecases.UserLoginUseCase
 
-
 fun Routing.userRoutes(
     createUseCase: UserCreateUseCase,
     loginUseCase: UserLoginUseCase,
