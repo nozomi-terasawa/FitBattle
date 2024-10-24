@@ -10,13 +10,20 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 
 class TestUserRepositoryImpl() : UserRepository {
-    override fun create(user: User) {
-        transaction {
-            UserTable.insert {
-                it[name] = user.name
-                it[email] = user.email
-                it[passwordHash] = user.passwordHash
+    override fun create(user: User): Int {
+        try {
+            var userId :Int = -1
+            transaction {
+                userId = UserTable.insert {
+                    it[name] = user.name
+                    it[email] = user.email
+                    it[passwordHash] = user.passwordHash
+                }[UserTable.id]
             }
+            return userId
+        } catch (e: Exception) {
+            println("Error during user creation: ${e.message}")
+            return -1
         }
     }
 

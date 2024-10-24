@@ -25,8 +25,8 @@ fun Routing.userRoutes(
     route("/api/v1/user") {
         post("/create") {
             val user = call.receive<UserCreateReq>()
-            createUseCase(user)
-            call.respond(status = HttpStatusCode.OK, message = user)
+            val token = createUseCase(user)
+            call.respond(status = HttpStatusCode.OK, message = mapOf("token" to token))
         }
         post("/login") {
             val user = call.receive<UserLoginReq>()
