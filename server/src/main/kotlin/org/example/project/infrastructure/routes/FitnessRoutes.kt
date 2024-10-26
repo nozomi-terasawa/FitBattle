@@ -12,10 +12,10 @@ fun Routing.fitnessRoutes(saveFitnessUseCase: SaveFitnessUseCase) {
         post("/save") {
             val fitness = call.receive<SaveFitnessReq>()
             val value = saveFitnessUseCase.save(fitness)
-            if (value) {
-                call.respond(status = HttpStatusCode.OK, message = "Fitness data saved")
+            if (value.success) {
+                call.respond(HttpStatusCode.Created, value)
             } else {
-                call.respond(status = HttpStatusCode.InternalServerError, message = "Failed to save fitness data")
+                call.respond(HttpStatusCode.BadRequest, value)
             }
         }
     }
