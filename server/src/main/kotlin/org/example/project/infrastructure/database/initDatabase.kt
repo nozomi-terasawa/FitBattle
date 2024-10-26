@@ -17,19 +17,24 @@ fun initDatabase() {
     transaction {
         SchemaUtils.create(
             UserTable,
-            GeoFence,
-            GeoFenceEntryLog,
+            GeoFenceTable,
+            GeoFenceEntryLogTable,
+            FitnessTable,
         )
-        UserTable.insert {
-            it[name] = "test1"
-            it[email] = "test@gmail.com"
-            it[passwordHash] = "test"
-        }
-        GeoFence.insert {
-            it[name] = "Tokyo"
-            it[latitude] = 35.681236
-            it[longitude] = 139.767125
-            it[radius] = 100.0
+        try {
+            UserTable.insert {
+                it[name] = "test1"
+                it[email] = "test@gmail.com"
+                it[passwordHash] = "test"
+            }
+            GeoFenceTable.insert {
+                it[name] = "Tokyo"
+                it[latitude] = 35.681236
+                it[longitude] = 139.767125
+                it[radius] = 100.0
+            }
+        } catch (e: Exception) {
+            println("Error during database initialization: ${e.message}")
         }
     }
 }

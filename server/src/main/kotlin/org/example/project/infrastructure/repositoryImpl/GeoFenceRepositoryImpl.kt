@@ -3,7 +3,7 @@ package org.example.project.infrastructure.repositoryImpl
 import org.example.project.domain.entities.location.EntryGeoFence
 import org.example.project.domain.entities.location.ExitGeoFence
 import org.example.project.domain.repository.GeoFenceRepository
-import org.example.project.infrastructure.database.GeoFenceEntryLog
+import org.example.project.infrastructure.database.GeoFenceEntryLogTable
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
@@ -14,12 +14,12 @@ class GeoFenceRepositoryImpl : GeoFenceRepository {
         try {
             id =
                 transaction {
-                    GeoFenceEntryLog
+                    GeoFenceEntryLogTable
                         .insert {
                             it[userId] = entryGeoFence.userId
                             it[geoFenceId] = entryGeoFence.geoFenceId
                             it[entryTime] = entryGeoFence.entryTime
-                        }.getOrNull(GeoFenceEntryLog.id)
+                        }.getOrNull(GeoFenceEntryLogTable.id)
                 }
         } catch (e: Exception) {
             return -1
@@ -30,7 +30,7 @@ class GeoFenceRepositoryImpl : GeoFenceRepository {
     override fun exit(exitGeoFence: ExitGeoFence): Boolean {
         try {
             transaction {
-                GeoFenceEntryLog.update(where = { GeoFenceEntryLog.id eq exitGeoFence.geoFenceEntryLogId }) {
+                GeoFenceEntryLogTable.update(where = { GeoFenceEntryLogTable.id eq exitGeoFence.geoFenceEntryLogId }) {
                     it[exitTime] = exitGeoFence.exitTime
                 }
             }
