@@ -13,9 +13,10 @@ import io.ktor.server.sse.*
 import io.ktor.server.websocket.*
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
+import org.example.project.infrastructure.repositoryImpl.GeoFenceRepositoryImpl
+import org.example.project.infrastructure.repositoryImpl.UserRepositoryImpl
 import org.example.project.infrastructure.routes.geoFenceRoutes
 import org.example.project.infrastructure.routes.userRoutes
-import org.example.project.infrastructure.test.TestUserRepositoryImpl
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
 import org.example.project.usecases.user.UserCreateUseCase
@@ -68,15 +69,16 @@ fun Application.module() {
     initDatabase()
 
     // ユーザーのUseCaseをDI
-    val testUserRepositoryImpl = TestUserRepositoryImpl()
+    val testUserRepositoryImpl = UserRepositoryImpl()
     val userCreateUseCase = UserCreateUseCase(testUserRepositoryImpl, authJwt)
     val userLoginUseCase = UserLoginUseCase(testUserRepositoryImpl, authJwt)
     val userLogoutUseCase = UserLogOutUseCase(testUserRepositoryImpl)
     val userDeleteUseCase = UserDeleteUseCase(testUserRepositoryImpl)
 
     // ジオフェンス関係のUseCaseをDI
-    val entryGeofenceUseCase = EntryGeofenceUseCase()
-    val exitFeoFenceUseCase = ExitFeoFenceUseCase()
+    val geoFenceRepository = GeoFenceRepositoryImpl()
+    val entryGeofenceUseCase = EntryGeofenceUseCase(geoFenceRepository)
+    val exitFeoFenceUseCase = ExitFeoFenceUseCase(geoFenceRepository)
 
     routing {
         userRoutes(

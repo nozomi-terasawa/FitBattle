@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ExitFeoFenceReq(
+    val geoFenceEntryLogId: Int,
     val userId: Int,
     val geoFenceId: Int,
     val exitTime: String,
