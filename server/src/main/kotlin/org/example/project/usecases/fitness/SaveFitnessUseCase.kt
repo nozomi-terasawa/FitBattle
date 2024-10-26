@@ -9,7 +9,7 @@ import org.example.project.infrastructure.serializationData.SaveFitnessRes
 class SaveFitnessUseCase(
     private val fitnessRepository: FitnessRepository,
 ) {
-    fun save(fitness: SaveFitnessReq): SaveFitnessRes =
+    operator fun invoke(fitness: SaveFitnessReq): SaveFitnessRes =
         SaveFitnessRes(
             success =
                 fitnessRepository.save(
