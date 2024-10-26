@@ -13,10 +13,13 @@ import io.ktor.server.sse.*
 import io.ktor.server.websocket.*
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
+import org.example.project.infrastructure.repositoryImpl.FitnessRepositoryImpl
 import org.example.project.infrastructure.repositoryImpl.GeoFenceRepositoryImpl
 import org.example.project.infrastructure.repositoryImpl.UserRepositoryImpl
+import org.example.project.infrastructure.routes.fitnessRoutes
 import org.example.project.infrastructure.routes.geoFenceRoutes
 import org.example.project.infrastructure.routes.userRoutes
+import org.example.project.usecases.fitness.SaveFitnessUseCase
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
 import org.example.project.usecases.user.UserCreateUseCase
@@ -80,6 +83,10 @@ fun Application.module() {
     val entryGeofenceUseCase = EntryGeofenceUseCase(geoFenceRepository)
     val exitFeoFenceUseCase = ExitFeoFenceUseCase(geoFenceRepository)
 
+    // フィットネス関係のUseCaseをDI
+    val fitnessRepository = FitnessRepositoryImpl()
+    val saveFitnessUseCase = SaveFitnessUseCase(fitnessRepository)
+
     routing {
         userRoutes(
             userCreateUseCase,
@@ -90,6 +97,9 @@ fun Application.module() {
         geoFenceRoutes(
             entryGeofenceUseCase = entryGeofenceUseCase,
             exitFeoFenceUseCase = exitFeoFenceUseCase,
+        )
+        fitnessRoutes(
+            saveFitnessUseCase = saveFitnessUseCase,
         )
     }
 }

@@ -3,9 +3,9 @@ package org.example.project.usecases.location
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.example.project.domain.entities.location.EntryGeoFence
 import org.example.project.domain.repository.GeoFenceRepository
-import org.example.project.infrastructure.EntryGeoFenceReq
-import org.example.project.infrastructure.EntryGeoFenceRes
-import org.example.project.infrastructure.MemberInfo
+import org.example.project.infrastructure.serializationData.EntryGeoFenceReq
+import org.example.project.infrastructure.serializationData.EntryGeoFenceRes
+import org.example.project.infrastructure.serializationData.MemberInfo
 import java.time.OffsetDateTime
 
 class EntryGeofenceUseCase(

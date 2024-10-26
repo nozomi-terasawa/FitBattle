@@ -3,8 +3,8 @@ package org.example.project.usecases.location
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.example.project.domain.entities.location.ExitGeoFence
 import org.example.project.domain.repository.GeoFenceRepository
-import org.example.project.infrastructure.ExitFeoFenceReq
-import org.example.project.infrastructure.ExitGeoFenceRes
+import org.example.project.infrastructure.serializationData.ExitFeoFenceReq
+import org.example.project.infrastructure.serializationData.ExitGeoFenceRes
 import java.time.OffsetDateTime
 
 class ExitFeoFenceUseCase(

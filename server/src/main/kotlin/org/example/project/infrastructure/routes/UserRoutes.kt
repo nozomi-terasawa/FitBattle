@@ -4,8 +4,8 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.example.project.infrastructure.UserCreateReq
-import org.example.project.infrastructure.UserLoginReq
+import org.example.project.infrastructure.serializationData.UserCreateReq
+import org.example.project.infrastructure.serializationData.UserLoginReq
 import org.example.project.usecases.user.UserCreateUseCase
 import org.example.project.usecases.user.UserDeleteUseCase
 import org.example.project.usecases.user.UserLogOutUseCase
