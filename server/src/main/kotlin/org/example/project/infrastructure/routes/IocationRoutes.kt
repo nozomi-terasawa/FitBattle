@@ -7,8 +7,8 @@ import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import org.example.project.infrastructure.EntryGeoFenceReq
-import org.example.project.infrastructure.ExitFeoFenceReq
+import org.example.project.infrastructure.serializationData.EntryGeoFenceReq
+import org.example.project.infrastructure.serializationData.ExitFeoFenceReq
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
 import java.util.*

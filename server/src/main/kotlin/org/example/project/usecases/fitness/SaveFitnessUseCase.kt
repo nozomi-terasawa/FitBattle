@@ -3,7 +3,7 @@ package org.example.project.usecases.fitness
 import org.example.project.domain.entities.fitness.Fitness
 import org.example.project.domain.repository.FitnessRepository
 import org.example.project.domain.utility.toLocalDateTime
-import org.example.project.infrastructure.SaveFitnessReq
+import org.example.project.infrastructure.serializationData.SaveFitnessReq
 
 class SaveFitnessUseCase(
     private val fitnessRepository: FitnessRepository,

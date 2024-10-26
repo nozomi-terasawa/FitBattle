@@ -4,7 +4,7 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.example.project.infrastructure.SaveFitnessReq
+import org.example.project.infrastructure.serializationData.SaveFitnessReq
 import org.example.project.usecases.fitness.SaveFitnessUseCase
 
 fun Routing.fitnessRoutes(saveFitnessUseCase: SaveFitnessUseCase) {
