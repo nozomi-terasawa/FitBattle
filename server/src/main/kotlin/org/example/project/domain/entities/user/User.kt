@@ -1,4 +1,4 @@
-package org.example.project.domain.entities
+package org.example.project.domain.entities.user
 
 data class User(
     val name: String = "",

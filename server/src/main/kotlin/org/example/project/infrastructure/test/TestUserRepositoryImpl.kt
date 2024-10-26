@@ -1,6 +1,6 @@
 package org.example.project.infrastructure.test
 
-import org.example.project.domain.entities.User
+import org.example.project.domain.entities.user.User
 import org.example.project.domain.repository.UserRepository
 import org.example.project.infrastructure.database.UserTable
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq

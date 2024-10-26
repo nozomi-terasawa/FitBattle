@@ -13,10 +13,11 @@ fun initDatabase() {
         user = "test",
         password = "test",
     )
-
     transaction {
         SchemaUtils.create(
             UserTable,
+            GeoFence,
+            GeoFenceEntryLog,
         )
     }
 }
