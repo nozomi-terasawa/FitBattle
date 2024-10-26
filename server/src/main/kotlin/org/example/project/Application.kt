@@ -15,9 +15,11 @@ import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
 import org.example.project.infrastructure.repositoryImpl.FitnessRepositoryImpl
 import org.example.project.infrastructure.repositoryImpl.GeoFenceRepositoryImpl
+import org.example.project.infrastructure.repositoryImpl.PassedUserRepositoryImpl
 import org.example.project.infrastructure.repositoryImpl.UserRepositoryImpl
 import org.example.project.infrastructure.routes.fitnessRoutes
 import org.example.project.infrastructure.routes.geoFenceRoutes
+import org.example.project.infrastructure.routes.passedRoutes
 import org.example.project.infrastructure.routes.userRoutes
 import org.example.project.usecases.fitness.SaveFitnessUseCase
 import org.example.project.usecases.location.EntryGeofenceUseCase
@@ -87,6 +89,9 @@ fun Application.module() {
     val fitnessRepository = FitnessRepositoryImpl()
     val saveFitnessUseCase = SaveFitnessUseCase(fitnessRepository)
 
+    // すれ違い
+    val passedUserRepository = PassedUserRepositoryImpl()
+
     routing {
         userRoutes(
             userCreateUseCase,
@@ -100,6 +105,9 @@ fun Application.module() {
         )
         fitnessRoutes(
             saveFitnessUseCase = saveFitnessUseCase,
+        )
+        passedRoutes(
+            passedUserRepository = passedUserRepository,
         )
     }
 }
