@@ -1,19 +1,15 @@
 package org.example.project.infrastructure.routes
 
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.routing.Routing
-import io.ktor.server.routing.delete
-import io.ktor.server.routing.post
-import io.ktor.server.routing.route
+import io.ktor.http.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.example.project.infrastructure.UserCreateReq
 import org.example.project.infrastructure.UserLoginReq
-import org.example.project.usecases.UserCreateUseCase
-import org.example.project.usecases.UserDeleteUseCase
-import org.example.project.usecases.UserLogOutUseCase
-import org.example.project.usecases.UserLoginUseCase
+import org.example.project.usecases.user.UserCreateUseCase
+import org.example.project.usecases.user.UserDeleteUseCase
+import org.example.project.usecases.user.UserLogOutUseCase
+import org.example.project.usecases.user.UserLoginUseCase
 
 fun Routing.userRoutes(
     createUseCase: UserCreateUseCase,

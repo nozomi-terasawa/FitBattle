@@ -30,6 +30,8 @@ dependencies {
     implementation(libs.postgresql)
     implementation(libs.ktor.auth)
     implementation(libs.ktor.auth.jwt)
-    testImplementation(libs.ktor.server.tests)
+    implementation(libs.ktor.websockets)
+    implementation(libs.ktor.sse)
+    testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }

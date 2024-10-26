@@ -1,23 +1,16 @@
-package org.example.project.usecases
+package org.example.project.usecases.user
 
-import org.example.project.domain.entities.User
+import org.example.project.domain.entities.user.User
 import org.example.project.domain.repository.UserRepository
+import org.example.project.domain.utility.hashWithSHA256
 import org.example.project.infrastructure.UserCreateReq
 import org.example.project.infrastructure.auth.AuthJwt
-import java.security.MessageDigest
 
 class UserCreateUseCase(
     private val userRepository: UserRepository,
     private val authJwt: AuthJwt,
 ) {
     operator fun invoke(user: UserCreateReq): String {
-        fun String.hashWithSHA256(): String {
-            val bytes = this.toByteArray()
-            val md = MessageDigest.getInstance("SHA-256")
-            val digest = md.digest(bytes)
-            return digest.fold("") { str, it -> str + "%02x".format(it) }
-        }
-
         val userId =
             userRepository.create(
                 User(

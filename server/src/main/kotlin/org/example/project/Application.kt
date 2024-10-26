@@ -1,25 +1,28 @@
 package org.example.project
 
-import io.ktor.http.HttpStatusCode
-import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
-import io.ktor.server.auth.Authentication
-import io.ktor.server.auth.jwt.JWTPrincipal
-import io.ktor.server.auth.jwt.jwt
-import io.ktor.server.netty.EngineMain
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.response.respond
-import io.ktor.server.routing.routing
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
+import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import io.ktor.server.sse.*
+import io.ktor.server.websocket.*
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
-import org.example.project.infrastructure.routes.locationRoutes
+import org.example.project.infrastructure.repositoryImpl.GeoFenceRepositoryImpl
+import org.example.project.infrastructure.repositoryImpl.UserRepositoryImpl
+import org.example.project.infrastructure.routes.geoFenceRoutes
 import org.example.project.infrastructure.routes.userRoutes
-import org.example.project.infrastructure.test.TestUserRepositoryImpl
-import org.example.project.usecases.UserCreateUseCase
-import org.example.project.usecases.UserDeleteUseCase
-import org.example.project.usecases.UserLogOutUseCase
-import org.example.project.usecases.UserLoginUseCase
+import org.example.project.usecases.location.EntryGeofenceUseCase
+import org.example.project.usecases.location.ExitFeoFenceUseCase
+import org.example.project.usecases.user.UserCreateUseCase
+import org.example.project.usecases.user.UserDeleteUseCase
+import org.example.project.usecases.user.UserLogOutUseCase
+import org.example.project.usecases.user.UserLoginUseCase
 
 fun main(args: Array<String>) {
     EngineMain.main(args)
@@ -36,6 +39,13 @@ fun Application.module() {
     install(ContentNegotiation) {
         json()
     }
+
+    install(WebSockets) {
+        maxFrameSize = Long.MAX_VALUE
+        masking = false
+    }
+
+    install(SSE)
 
     install(Authentication) {
         // JWTの設定
@@ -58,11 +68,17 @@ fun Application.module() {
 
     initDatabase()
 
-    val testUserRepositoryImpl = TestUserRepositoryImpl()
+    // ユーザーのUseCaseをDI
+    val testUserRepositoryImpl = UserRepositoryImpl()
     val userCreateUseCase = UserCreateUseCase(testUserRepositoryImpl, authJwt)
     val userLoginUseCase = UserLoginUseCase(testUserRepositoryImpl, authJwt)
     val userLogoutUseCase = UserLogOutUseCase(testUserRepositoryImpl)
     val userDeleteUseCase = UserDeleteUseCase(testUserRepositoryImpl)
+
+    // ジオフェンス関係のUseCaseをDI
+    val geoFenceRepository = GeoFenceRepositoryImpl()
+    val entryGeofenceUseCase = EntryGeofenceUseCase(geoFenceRepository)
+    val exitFeoFenceUseCase = ExitFeoFenceUseCase(geoFenceRepository)
 
     routing {
         userRoutes(
@@ -71,6 +87,9 @@ fun Application.module() {
             userLogoutUseCase,
             userDeleteUseCase,
         )
-        locationRoutes()
+        geoFenceRoutes(
+            entryGeofenceUseCase = entryGeofenceUseCase,
+            exitFeoFenceUseCase = exitFeoFenceUseCase,
+        )
     }
 }

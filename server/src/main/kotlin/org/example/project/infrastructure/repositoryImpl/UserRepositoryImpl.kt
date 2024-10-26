@@ -1,6 +1,6 @@
-package org.example.project.infrastructure.test
+package org.example.project.infrastructure.repositoryImpl
 
-import org.example.project.domain.entities.User
+import org.example.project.domain.entities.user.User
 import org.example.project.domain.repository.UserRepository
 import org.example.project.infrastructure.database.UserTable
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class TestUserRepositoryImpl : UserRepository {
+class UserRepositoryImpl : UserRepository {
     override fun create(user: User): Int {
         try {
             var userId: Int = -1
