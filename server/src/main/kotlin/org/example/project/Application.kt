@@ -21,6 +21,7 @@ import org.example.project.infrastructure.routes.fitnessRoutes
 import org.example.project.infrastructure.routes.geoFenceRoutes
 import org.example.project.infrastructure.routes.passedRoutes
 import org.example.project.infrastructure.routes.userRoutes
+import org.example.project.usecases.fitness.GetFitnessUseCase
 import org.example.project.usecases.fitness.SaveFitnessUseCase
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
@@ -88,6 +89,7 @@ fun Application.module() {
     // フィットネス関係のUseCaseをDI
     val fitnessRepository = FitnessRepositoryImpl()
     val saveFitnessUseCase = SaveFitnessUseCase(fitnessRepository)
+    val getFitnessUseCase = GetFitnessUseCase(fitnessRepository)
 
     // すれ違い
     val passedUserRepository = PassedUserRepositoryImpl()
@@ -105,6 +107,7 @@ fun Application.module() {
         )
         fitnessRoutes(
             saveFitnessUseCase = saveFitnessUseCase,
+            getFitnessUseCase = getFitnessUseCase,
         )
         passedRoutes(
             passedUserRepository = passedUserRepository,
