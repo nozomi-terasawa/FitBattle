@@ -7,10 +7,7 @@ import io.ktor.server.routing.*
 import org.example.project.infrastructure.SaveFitnessReq
 import org.example.project.usecases.fitness.SaveFitnessUseCase
 
-fun Routing.fitnessRoutes(
-    saveFitnessUseCase: SaveFitnessUseCase
-) {
-
+fun Routing.fitnessRoutes(saveFitnessUseCase: SaveFitnessUseCase) {
     route("/api/v1/fitness") {
         post("/save") {
             val fitness = call.receive<SaveFitnessReq>()

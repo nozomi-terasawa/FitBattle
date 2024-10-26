@@ -6,10 +6,9 @@ import org.example.project.infrastructure.database.FitnessTable
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class FitnessRepositoryImpl:FitnessRepository {
-
+class FitnessRepositoryImpl : FitnessRepository {
     override fun save(fitness: Fitness): Boolean {
-        try{
+        try {
             transaction {
                 FitnessTable.insert {
                     it[userId] = fitness.userId
@@ -35,5 +34,4 @@ class FitnessRepositoryImpl:FitnessRepository {
     override fun update(fitness: Fitness): Boolean {
         TODO("Not yet implemented")
     }
-
 }

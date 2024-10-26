@@ -4,6 +4,6 @@ import kotlinx.datetime.LocalDateTime
 
 data class Fitness(
     val userId: Int,
-    val calories:Float,
-    val timestamp:LocalDateTime,
+    val calories: Float,
+    val timestamp: LocalDateTime,
 )
