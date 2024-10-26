@@ -39,5 +39,4 @@ class TestClass {
         println("Test 3")
         assert(testList.contains(2))
     }
-
 }
