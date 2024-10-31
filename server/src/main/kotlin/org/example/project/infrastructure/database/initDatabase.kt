@@ -1,9 +1,7 @@
 package org.example.project.infrastructure.database
 
-import kotlinx.datetime.LocalDateTime
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun initDatabase() {
@@ -22,7 +20,7 @@ fun initDatabase() {
             GeoFenceEntryLogTable,
             FitnessTable,
         )
-        try {
+        /*try {
             for (i in 1..20) {
                 UserTable.insert {
                     it[name] = "test$i"
@@ -162,6 +160,6 @@ fun initDatabase() {
             }
         } catch (e: Exception) {
             println("Error during database initialization: ${e.message}")
-        }
+        }*/
     }
 }

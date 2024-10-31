@@ -9,7 +9,6 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.sse.*
 import io.ktor.server.websocket.*
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
@@ -50,8 +49,6 @@ fun Application.module() {
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }
-
-    install(SSE)
 
     install(Authentication) {
         // JWTの設定

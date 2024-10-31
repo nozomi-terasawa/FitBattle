@@ -20,13 +20,17 @@ fun Routing.userRoutes(
     route("/api/v1/user") {
         post("/create") {
             val user = call.receive<UserCreateReq>()
-            val token = createUseCase(user)
-            call.respond(status = HttpStatusCode.OK, message = mapOf("token" to token))
+            val value = createUseCase(user)
+            if (value.userId == -1) {
+                call.respond(status = HttpStatusCode.BadRequest, message = "User already exists")
+            } else {
+                call.respond(status = HttpStatusCode.Created, message = value)
+            }
         }
         post("/login") {
             val user = call.receive<UserLoginReq>()
             val value = loginUseCase(user)
-            if (value.email == "") {
+            if (value.userId == -1) {
                 call.respond(status = HttpStatusCode.Unauthorized, message = "Invalid email or password")
             } else {
                 call.respond(status = HttpStatusCode.OK, message = value)

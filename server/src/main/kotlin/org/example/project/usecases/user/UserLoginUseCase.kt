@@ -16,8 +16,8 @@ class UserLoginUseCase(
         return if (value.passwordHash == user.password.hashWithSHA256()) {
             val token = authJwt.getToken(value.email)
             UserLoginRes(
+                userId = value.userId,
                 name = value.name,
-                email = value.email,
                 token = token,
             )
         } else {
