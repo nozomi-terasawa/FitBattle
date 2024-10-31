@@ -36,7 +36,8 @@ class AuthJwt(
             .create()
             .withSubject("Authentication")
             .withIssuer(issuer)
+            .withAudience(audience)
             .withClaim("userEmail", user)
-            .withExpiresAt(Date(System.currentTimeMillis() + 60000))
+            .withExpiresAt(Date(System.currentTimeMillis() + 600000 * 60))
             .sign(Algorithm.HMAC256(secret))
 }

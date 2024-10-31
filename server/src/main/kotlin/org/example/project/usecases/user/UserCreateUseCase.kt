@@ -23,7 +23,7 @@ class UserCreateUseCase(
         return if (userId != -1) {
             UserCreateRes(
                 userId,
-                authJwt.getToken(userId.toString()),
+                authJwt.getToken(user.email),
             )
         } else {
             UserCreateRes(-1, "")

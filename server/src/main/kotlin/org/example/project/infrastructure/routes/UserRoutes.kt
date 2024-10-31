@@ -1,6 +1,7 @@
 package org.example.project.infrastructure.routes
 
 import io.ktor.http.*
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -36,13 +37,17 @@ fun Routing.userRoutes(
                 call.respond(status = HttpStatusCode.OK, message = value)
             }
         }
-        post("/logout") {
-            logoutUseCase()
-            call.respond(status = HttpStatusCode.OK, message = "User logged out")
-        }
-        delete("/delete") {
-            deleteUseCase()
-            call.respond(status = HttpStatusCode.OK, message = "User deleted")
+
+        // JTW認証が必要
+        authenticate("auth-jwt") {
+            post("/logout") {
+                logoutUseCase()
+                call.respond(status = HttpStatusCode.OK, message = "User logged out")
+            }
+            delete("/delete") {
+                deleteUseCase()
+                call.respond(status = HttpStatusCode.OK, message = "User deleted")
+            }
         }
     }
 }
