@@ -7,9 +7,11 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.plugins.openapi.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.swagger.codegen.v3.generators.html.StaticHtmlCodegen
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
 import org.example.project.infrastructure.repositoryImpl.FitnessRepositoryImpl
@@ -92,6 +94,11 @@ fun Application.module() {
     val passedUserRepository = PassedUserRepositoryImpl()
 
     routing {
+
+        openAPI(path="openapi", swaggerFile = "openapi/documentation.yaml"){
+            codegen = StaticHtmlCodegen()
+        }
+
         userRoutes(
             userCreateUseCase,
             userLoginUseCase,

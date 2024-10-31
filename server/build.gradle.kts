@@ -31,7 +31,8 @@ dependencies {
     implementation(libs.ktor.auth)
     implementation(libs.ktor.auth.jwt)
     implementation(libs.ktor.websockets)
-    implementation(libs.ktor.sse)
+    implementation(libs.ktor.openapi)
+    implementation(libs.ktor.swagger.generators)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }
