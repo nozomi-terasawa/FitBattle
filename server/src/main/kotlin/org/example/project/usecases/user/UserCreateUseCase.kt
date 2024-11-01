@@ -5,24 +5,28 @@ import org.example.project.domain.repository.UserRepository
 import org.example.project.domain.utility.hashWithSHA256
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.serializationData.UserCreateReq
+import org.example.project.infrastructure.serializationData.UserCreateRes
 
 class UserCreateUseCase(
     private val userRepository: UserRepository,
     private val authJwt: AuthJwt,
 ) {
-    operator fun invoke(user: UserCreateReq): String {
+    operator fun invoke(user: UserCreateReq): UserCreateRes {
         val userId =
             userRepository.create(
                 User(
-                    user.name,
-                    user.email,
-                    user.password.hashWithSHA256(),
+                    name = user.name,
+                    email = user.email,
+                    passwordHash = user.password.hashWithSHA256(),
                 ),
             )
         return if (userId != -1) {
-            authJwt.getToken(userId.toString())
+            UserCreateRes(
+                userId,
+                authJwt.getToken(user.email),
+            )
         } else {
-            ""
+            UserCreateRes(-1, "")
         }
     }
 }

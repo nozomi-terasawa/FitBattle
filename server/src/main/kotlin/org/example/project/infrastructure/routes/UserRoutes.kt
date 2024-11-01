@@ -1,6 +1,7 @@
 package org.example.project.infrastructure.routes
 
 import io.ktor.http.*
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -20,25 +21,38 @@ fun Routing.userRoutes(
     route("/api/v1/user") {
         post("/create") {
             val user = call.receive<UserCreateReq>()
-            val token = createUseCase(user)
-            call.respond(status = HttpStatusCode.OK, message = mapOf("token" to token))
+            val value = createUseCase(user)
+            if (value.userId == -1) {
+                call.respond(status = HttpStatusCode.BadRequest, message = "User already exists")
+            } else {
+                call.respond(status = HttpStatusCode.Created, message = value)
+            }
         }
         post("/login") {
             val user = call.receive<UserLoginReq>()
             val value = loginUseCase(user)
-            if (value.email == "") {
+            if (value.userId == -1) {
                 call.respond(status = HttpStatusCode.Unauthorized, message = "Invalid email or password")
             } else {
                 call.respond(status = HttpStatusCode.OK, message = value)
             }
         }
-        post("/logout") {
-            logoutUseCase()
-            call.respond(status = HttpStatusCode.OK, message = "User logged out")
-        }
-        delete("/delete") {
-            deleteUseCase()
-            call.respond(status = HttpStatusCode.OK, message = "User deleted")
+
+        // JTW認証が必要
+        authenticate("auth-jwt") {
+
+            get("/get") {
+                call.respondText("Get user")
+            }
+
+            post("/logout") {
+                logoutUseCase()
+                call.respond(status = HttpStatusCode.OK, message = "User logged out")
+            }
+            delete("/delete") {
+                deleteUseCase()
+                call.respond(status = HttpStatusCode.OK, message = "User deleted")
+            }
         }
     }
 }
