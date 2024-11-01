@@ -1,5 +1,6 @@
 package org.example.project.infrastructure.routes
 
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -22,63 +23,66 @@ fun Routing.geoFenceRoutes(
     exitFeoFenceUseCase: ExitFeoFenceUseCase,
 ) {
     route("/api/v1/location") {
-        post("/geofence/entry") {
-            val info = call.receive<EntryGeoFenceReq>()
-            val res = entryGeofenceUseCase(info)
-            call.respond(message = res)
-        }
+        // JTW認証が必要
+        authenticate("auth-jwt") {
+            post("/geofence/entry") {
+                val info = call.receive<EntryGeoFenceReq>()
+                val res = entryGeofenceUseCase(info)
+                call.respond(message = res)
+            }
+            post("/geofence/exit") {
+                val info = call.receive<ExitFeoFenceReq>()
+                val res = exitFeoFenceUseCase(info)
+                call.respond(message = res)
+            }
 
-        post("/geofence/exit") {
-            val info = call.receive<ExitFeoFenceReq>()
-            val res = exitFeoFenceUseCase(info)
-            call.respond(message = res)
-        }
+            val clients = ConcurrentHashMap<String, MutableMap<String, WebSocketServerSession>>()
+            val clientSizes = ConcurrentHashMap<String, MutableStateFlow<Int>>()
 
-        val clients = ConcurrentHashMap<String, MutableMap<String, WebSocketServerSession>>()
-        val clientSizes = ConcurrentHashMap<String, MutableStateFlow<Int>>()
+            webSocket("/ws") {
+                val parameters = call.request.queryParameters
+                val roomID =
+                    parameters["roomID"] ?: return@webSocket close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "roomID is missing"))
 
-        webSocket("/ws") {
-            val parameters = call.request.queryParameters
-            val roomID = parameters["roomID"] ?: return@webSocket close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "roomID is missing"))
+                send(content = "Location WebSocket for Room: $roomID")
 
-            send(content = "Location WebSocket for Room: $roomID")
+                val uuid = UUID.randomUUID().toString()
+                val roomClients = clients.getOrPut(roomID) { ConcurrentHashMap() }
+                roomClients[uuid] = this
 
-            val uuid = UUID.randomUUID().toString()
-            val roomClients = clients.getOrPut(roomID) { ConcurrentHashMap() }
-            roomClients[uuid] = this
+                val roomClientSize = clientSizes.getOrPut(roomID) { MutableStateFlow(0) }
+                roomClientSize.value = roomClients.size
 
-            val roomClientSize = clientSizes.getOrPut(roomID) { MutableStateFlow(0) }
-            roomClientSize.value = roomClients.size
-
-            val job =
-                launch {
-                    roomClientSize.collect { size ->
-                        send("Client size in Room $roomID: $size")
-                        send("Clients in Room $roomID: ${roomClients.keys.joinToString(", ")}")
+                val job =
+                    launch {
+                        roomClientSize.collect { size ->
+                            send("Client size in Room $roomID: $size")
+                            send("Clients in Room $roomID: ${roomClients.keys.joinToString(", ")}")
+                        }
                     }
-                }
 
-            try {
-                for (frame in incoming) {
-                    if (frame is Frame.Text) {
-                        val message = frame.readText()
-                        println("Received message from client $uuid in Room $roomID: $message")
-                        roomClients.forEach { (clientId, clientSession) ->
-                            if (clientId != uuid) {
-                                clientSession.send("Broadcast in Room $roomID: $message")
+                try {
+                    for (frame in incoming) {
+                        if (frame is Frame.Text) {
+                            val message = frame.readText()
+                            println("Received message from client $uuid in Room $roomID: $message")
+                            roomClients.forEach { (clientId, clientSession) ->
+                                if (clientId != uuid) {
+                                    clientSession.send("Broadcast in Room $roomID: $message")
+                                }
                             }
                         }
                     }
+                } finally {
+                    roomClients.remove(uuid)
+                    if (roomClients.isEmpty()) {
+                        clients.remove(roomID)
+                        clientSizes.remove(roomID)
+                    } else {
+                        roomClientSize.value = roomClients.size
+                    }
+                    job.cancel()
                 }
-            } finally {
-                roomClients.remove(uuid)
-                if (roomClients.isEmpty()) {
-                    clients.remove(roomID)
-                    clientSizes.remove(roomID)
-                } else {
-                    roomClientSize.value = roomClients.size
-                }
-                job.cancel()
             }
         }
     }

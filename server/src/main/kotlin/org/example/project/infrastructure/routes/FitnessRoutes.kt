@@ -1,6 +1,7 @@
 package org.example.project.infrastructure.routes
 
 import io.ktor.http.*
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -14,22 +15,25 @@ fun Routing.fitnessRoutes(
     getFitnessUseCase: GetFitnessUseCase,
 ) {
     route("/api/v1/fitness") {
-        post("/save") {
-            val fitness = call.receive<SaveFitnessReq>()
-            val value = saveFitnessUseCase(fitness)
-            if (value.success) {
-                call.respond(HttpStatusCode.Created, value)
-            } else {
-                call.respond(HttpStatusCode.BadRequest, value)
+        // JTW認証が必要
+        authenticate("auth-jwt") {
+            post("/save") {
+                val fitness = call.receive<SaveFitnessReq>()
+                val value = saveFitnessUseCase(fitness)
+                if (value.success) {
+                    call.respond(HttpStatusCode.Created, value)
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, value)
+                }
             }
-        }
-        get {
-            val userId = call.receive<GetFitnessReq>()
-            val fitness = getFitnessUseCase(userId)
-            if (fitness.success) {
-                call.respond(HttpStatusCode.OK, fitness)
-            } else {
-                call.respond(HttpStatusCode.NotFound, message = fitness)
+            get {
+                val userId = call.receive<GetFitnessReq>()
+                val fitness = getFitnessUseCase(userId)
+                if (fitness.success) {
+                    call.respond(HttpStatusCode.OK, fitness)
+                } else {
+                    call.respond(HttpStatusCode.NotFound, message = fitness)
+                }
             }
         }
     }
