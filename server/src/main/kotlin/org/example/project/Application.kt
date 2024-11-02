@@ -7,17 +7,12 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.openapi.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import io.swagger.codegen.v3.generators.html.StaticHtmlCodegen
 import org.example.project.infrastructure.auth.AuthJwt
 import org.example.project.infrastructure.database.initDatabase
-import org.example.project.infrastructure.repositoryImpl.FitnessRepositoryImpl
-import org.example.project.infrastructure.repositoryImpl.GeoFenceRepositoryImpl
-import org.example.project.infrastructure.repositoryImpl.PassedUserRepositoryImpl
-import org.example.project.infrastructure.repositoryImpl.UserRepositoryImpl
+import org.example.project.infrastructure.repositoryImpl.*
 import org.example.project.infrastructure.routes.fitnessRoutes
 import org.example.project.infrastructure.routes.geoFenceRoutes
 import org.example.project.infrastructure.routes.passedRoutes
@@ -26,6 +21,7 @@ import org.example.project.usecases.fitness.GetFitnessUseCase
 import org.example.project.usecases.fitness.SaveFitnessUseCase
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
+import org.example.project.usecases.passed.TodayPassedUserGetUseCase
 import org.example.project.usecases.user.UserCreateUseCase
 import org.example.project.usecases.user.UserDeleteUseCase
 import org.example.project.usecases.user.UserLogOutUseCase
@@ -73,32 +69,31 @@ fun Application.module() {
 
     initDatabase()
 
+    // 実実装のDI
+    val userRepositoryImpl = UserRepositoryImpl()
+    val userInfoRepositoryImpl = UserInfoRepositoryImpl()
+    val geoFenceRepository = GeoFenceRepositoryImpl()
+    val fitnessRepository = FitnessRepositoryImpl()
+
     // ユーザーのUseCaseをDI
-    val testUserRepositoryImpl = UserRepositoryImpl()
-    val userCreateUseCase = UserCreateUseCase(testUserRepositoryImpl, authJwt)
-    val userLoginUseCase = UserLoginUseCase(testUserRepositoryImpl, authJwt)
-    val userLogoutUseCase = UserLogOutUseCase(testUserRepositoryImpl)
-    val userDeleteUseCase = UserDeleteUseCase(testUserRepositoryImpl)
+    val userCreateUseCase = UserCreateUseCase(userRepositoryImpl, authJwt)
+    val userLoginUseCase = UserLoginUseCase(userRepositoryImpl, authJwt)
+    val userLogoutUseCase = UserLogOutUseCase(userRepositoryImpl)
+    val userDeleteUseCase = UserDeleteUseCase(userRepositoryImpl)
 
     // ジオフェンス関係のUseCaseをDI
-    val geoFenceRepository = GeoFenceRepositoryImpl()
     val entryGeofenceUseCase = EntryGeofenceUseCase(geoFenceRepository)
     val exitFeoFenceUseCase = ExitFeoFenceUseCase(geoFenceRepository)
 
     // フィットネス関係のUseCaseをDI
-    val fitnessRepository = FitnessRepositoryImpl()
     val saveFitnessUseCase = SaveFitnessUseCase(fitnessRepository)
     val getFitnessUseCase = GetFitnessUseCase(fitnessRepository)
 
     // すれ違い
     val passedUserRepository = PassedUserRepositoryImpl()
+    val todayPassedUserGetUseCase = TodayPassedUserGetUseCase(passedUserRepository, userInfoRepositoryImpl)
 
     routing {
-
-        openAPI(path="openapi", swaggerFile = "openapi/documentation.yaml"){
-            codegen = StaticHtmlCodegen()
-        }
-
         userRoutes(
             userCreateUseCase,
             userLoginUseCase,
@@ -114,7 +109,7 @@ fun Application.module() {
             getFitnessUseCase = getFitnessUseCase,
         )
         passedRoutes(
-            passedUserRepository = passedUserRepository,
+            todayPassedUserGetUseCase = todayPassedUserGetUseCase,
         )
     }
 }

@@ -5,19 +5,19 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.example.project.domain.repository.PassedUserRepository
 import org.example.project.infrastructure.serializationData.PassedReq
+import org.example.project.usecases.passed.TodayPassedUserGetUseCase
 
-fun Routing.passedRoutes(passedUserRepository: PassedUserRepository) {
+fun Routing.passedRoutes(todayPassedUserGetUseCase: TodayPassedUserGetUseCase) {
     route("/api/v1/passed") {
         // JTW認証が必要
         authenticate("auth-jwt") {
-            get("/get") {
+            get {
                 val req = call.receive<PassedReq>()
-                val res = passedUserRepository.getPassedUsers(req)
+                val res = todayPassedUserGetUseCase(req.userId, req.timestamp)
                 call.respond(status = HttpStatusCode.OK, message = res)
             }
-            get("/getAll") {
+            get("/all") {
                 call.respondText("Get all passed")
             }
         }

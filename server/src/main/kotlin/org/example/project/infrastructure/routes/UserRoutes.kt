@@ -40,7 +40,6 @@ fun Routing.userRoutes(
 
         // JTW認証が必要
         authenticate("auth-jwt") {
-
             get("/get") {
                 call.respondText("Get user")
             }
