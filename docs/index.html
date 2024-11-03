@@ -691,37 +691,25 @@
     var defs = {}
             defs["EntryGeoFenceReq"] = {
   "required" : [ "entryTime" ],
-  "type" : "object",
   "properties" : {
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     },
     "geoFenceId" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "entryTime" : {
-      "type" : "string"
-    }
+    "entryTime" : { }
   }
 };
             defs["EntryGeoFenceRes"] = {
   "required" : [ "passingMember", "token" ],
-  "type" : "object",
   "properties" : {
-    "success" : {
-      "type" : "boolean"
-    },
+    "success" : { },
     "geoFenceEntryLogId" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "token" : {
-      "type" : "string"
-    },
+    "token" : { },
     "passingMember" : {
-      "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/MemberInfo"
       }
@@ -730,48 +718,34 @@
 };
             defs["ExitFeoFenceReq"] = {
   "required" : [ "exitTime" ],
-  "type" : "object",
   "properties" : {
     "geoFenceEntryLogId" : {
-      "type" : "integer",
       "format" : "int32"
     },
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     },
     "geoFenceId" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "exitTime" : {
-      "type" : "string"
-    }
+    "exitTime" : { }
   }
 };
             defs["ExitGeoFenceRes"] = {
-  "type" : "object",
   "properties" : {
-    "success" : {
-      "type" : "boolean"
-    }
+    "success" : { }
   }
 };
             defs["GetFitnessReq"] = {
-  "type" : "object",
   "properties" : {
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     }
   }
 };
             defs["GetFitnessRes"] = {
-  "type" : "object",
   "properties" : {
-    "success" : {
-      "type" : "boolean"
-    },
+    "success" : { },
     "fitness" : {
       "$ref" : "#/components/schemas/SaveFitnessReq"
     }
@@ -779,112 +753,72 @@
 };
             defs["MemberInfo"] = {
   "required" : [ "iconUrl", "name" ],
-  "type" : "object",
   "properties" : {
     "id" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "name" : {
-      "type" : "string"
-    },
-    "iconUrl" : {
-      "type" : "string"
-    }
+    "name" : { },
+    "iconUrl" : { }
   }
 };
             defs["PassedReq"] = {
   "required" : [ "timestamp" ],
-  "type" : "object",
   "properties" : {
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "timestamp" : {
-      "type" : "string"
-    }
+    "timestamp" : { }
   }
 };
             defs["SaveFitnessReq"] = {
   "required" : [ "timestamp" ],
-  "type" : "object",
   "properties" : {
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     },
     "calories" : {
-      "type" : "number",
       "format" : "float"
     },
-    "timestamp" : {
-      "type" : "string"
-    }
+    "timestamp" : { }
   }
 };
             defs["SaveFitnessRes"] = {
-  "type" : "object",
   "properties" : {
-    "success" : {
-      "type" : "boolean"
-    }
+    "success" : { }
   }
 };
             defs["UserCreateReq"] = {
   "required" : [ "email", "name", "password" ],
-  "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
-    },
-    "email" : {
-      "type" : "string"
-    },
-    "password" : {
-      "type" : "string"
-    }
+    "name" : { },
+    "email" : { },
+    "password" : { }
   }
 };
             defs["UserCreateRes"] = {
   "required" : [ "token" ],
-  "type" : "object",
   "properties" : {
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "token" : {
-      "type" : "string"
-    }
+    "token" : { }
   }
 };
             defs["UserLoginReq"] = {
   "required" : [ "email", "password" ],
-  "type" : "object",
   "properties" : {
-    "email" : {
-      "type" : "string"
-    },
-    "password" : {
-      "type" : "string"
-    }
+    "email" : { },
+    "password" : { }
   }
 };
             defs["UserLoginRes"] = {
   "required" : [ "name", "token" ],
-  "type" : "object",
   "properties" : {
     "userId" : {
-      "type" : "integer",
       "format" : "int32"
     },
-    "name" : {
-      "type" : "string"
-    },
-    "token" : {
-      "type" : "string"
-    }
+    "name" : { },
+    "token" : { }
   }
 };
   </script>
@@ -930,6 +864,9 @@
                     </li>
                     <li data-group="Default" data-name="apiV1UserDeleteDelete" class="">
                       <a href="#api-Default-apiV1UserDeleteDelete">apiV1UserDeleteDelete</a>
+                    </li>
+                    <li data-group="Default" data-name="apiV1UserGetGet" class="">
+                      <a href="#api-Default-apiV1UserGetGet">apiV1UserGetGet</a>
                     </li>
                     <li data-group="Default" data-name="apiV1UserLoginPost" class="">
                       <a href="#api-Default-apiV1UserLoginPost">apiV1UserLoginPost</a>
@@ -2335,10 +2272,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        String connection = connection_example; // String | Websocket Connection parameter
-        String upgrade = upgrade_example; // String | Websocket Upgrade parameter
-        String secWebSocketKey = secWebSocketKey_example; // String | Websocket Sec-WebSocket-Key parameter
-        String roomID = roomID_example; // String | 
+         connection = ; //  | Websocket Connection parameter
+         upgrade = ; //  | Websocket Upgrade parameter
+         secWebSocketKey = ; //  | Websocket Sec-WebSocket-Key parameter
+         roomID = ; //  | 
         try {
             apiInstance.apiV1LocationWsGet(connection, upgrade, secWebSocketKey, roomID);
         } catch (ApiException e) {
@@ -2356,10 +2293,10 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        String connection = connection_example; // String | Websocket Connection parameter
-        String upgrade = upgrade_example; // String | Websocket Upgrade parameter
-        String secWebSocketKey = secWebSocketKey_example; // String | Websocket Sec-WebSocket-Key parameter
-        String roomID = roomID_example; // String | 
+         connection = ; //  | Websocket Connection parameter
+         upgrade = ; //  | Websocket Upgrade parameter
+         secWebSocketKey = ; //  | Websocket Sec-WebSocket-Key parameter
+         roomID = ; //  | 
         try {
             apiInstance.apiV1LocationWsGet(connection, upgrade, secWebSocketKey, roomID);
         } catch (ApiException e) {
@@ -2374,10 +2311,10 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-apiV1LocationWsGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *connection = connection_example; // Websocket Connection parameter
-String *upgrade = upgrade_example; // Websocket Upgrade parameter
-String *secWebSocketKey = secWebSocketKey_example; // Websocket Sec-WebSocket-Key parameter
-String *roomID = roomID_example; //  (optional)
+                              <pre class="prettyprint"><code class="language-cpp"> *connection = ; // Websocket Connection parameter
+ *upgrade = ; // Websocket Upgrade parameter
+ *secWebSocketKey = ; // Websocket Sec-WebSocket-Key parameter
+ *roomID = ; //  (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
@@ -2397,11 +2334,11 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var FitBattleApi = require('fit_battle_api');
 
 var api = new FitBattleApi.DefaultApi()
-var connection = connection_example; // {{String}} Websocket Connection parameter
-var upgrade = upgrade_example; // {{String}} Websocket Upgrade parameter
-var secWebSocketKey = secWebSocketKey_example; // {{String}} Websocket Sec-WebSocket-Key parameter
+var connection = ; // {{}} Websocket Connection parameter
+var upgrade = ; // {{}} Websocket Upgrade parameter
+var secWebSocketKey = ; // {{}} Websocket Sec-WebSocket-Key parameter
 var opts = { 
-  'roomID': roomID_example // {{String}} 
+  'roomID':  // {{}} 
 };
 var callback = function(error, data, response) {
   if (error) {
@@ -2432,10 +2369,10 @@ namespace Example
         {
 
             var apiInstance = new DefaultApi();
-            var connection = connection_example;  // String | Websocket Connection parameter
-            var upgrade = upgrade_example;  // String | Websocket Upgrade parameter
-            var secWebSocketKey = secWebSocketKey_example;  // String | Websocket Sec-WebSocket-Key parameter
-            var roomID = roomID_example;  // String |  (optional) 
+            var connection = new (); //  | Websocket Connection parameter
+            var upgrade = new (); //  | Websocket Upgrade parameter
+            var secWebSocketKey = new (); //  | Websocket Sec-WebSocket-Key parameter
+            var roomID = new (); //  |  (optional) 
 
             try
             {
@@ -2456,10 +2393,10 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiDefaultApi();
-$connection = connection_example; // String | Websocket Connection parameter
-$upgrade = upgrade_example; // String | Websocket Upgrade parameter
-$secWebSocketKey = secWebSocketKey_example; // String | Websocket Sec-WebSocket-Key parameter
-$roomID = roomID_example; // String | 
+$connection = ; //  | Websocket Connection parameter
+$upgrade = ; //  | Websocket Upgrade parameter
+$secWebSocketKey = ; //  | Websocket Sec-WebSocket-Key parameter
+$roomID = ; //  | 
 
 try {
     $api_instance->apiV1LocationWsGet($connection, $upgrade, $secWebSocketKey, $roomID);
@@ -2475,10 +2412,10 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
-my $connection = connection_example; # String | Websocket Connection parameter
-my $upgrade = upgrade_example; # String | Websocket Upgrade parameter
-my $secWebSocketKey = secWebSocketKey_example; # String | Websocket Sec-WebSocket-Key parameter
-my $roomID = roomID_example; # String | 
+my $connection = ; #  | Websocket Connection parameter
+my $upgrade = ; #  | Websocket Upgrade parameter
+my $secWebSocketKey = ; #  | Websocket Sec-WebSocket-Key parameter
+my $roomID = ; #  | 
 
 eval { 
     $api_instance->apiV1LocationWsGet(connection => $connection, upgrade => $upgrade, secWebSocketKey => $secWebSocketKey, roomID => $roomID);
@@ -2497,10 +2434,10 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
-connection = connection_example # String | Websocket Connection parameter
-upgrade = upgrade_example # String | Websocket Upgrade parameter
-secWebSocketKey = secWebSocketKey_example # String | Websocket Sec-WebSocket-Key parameter
-roomID = roomID_example # String |  (optional)
+connection =  #  | Websocket Connection parameter
+upgrade =  #  | Websocket Upgrade parameter
+secWebSocketKey =  #  | Websocket Sec-WebSocket-Key parameter
+roomID =  #  |  (optional)
 
 try: 
     api_instance.api_v1_location_ws_get(connection, upgrade, secWebSocketKey, roomID=roomID)
@@ -2526,7 +2463,7 @@ except ApiException as e:
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
-                                                      String
+                                                      
                                                   </span>
                                   
                                                       <div class="inner description">
@@ -2548,7 +2485,7 @@ except ApiException as e:
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
-                                                      String
+                                                      
                                                   </span>
                                   
                                                       <div class="inner description">
@@ -2570,7 +2507,7 @@ except ApiException as e:
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
-                                                      String
+                                                      
                                                   </span>
                                   
                                                       <div class="inner description">
@@ -2602,7 +2539,7 @@ except ApiException as e:
                                         <div class="json-schema-view">
                                             <div class="primitive">
                                                 <span class="type">
-                                                    String
+                                                    
                                                 </span>
                                 
                                             </div>
@@ -2632,19 +2569,19 @@ except ApiException as e:
                                         </tr>
                                         <tr>
                                             <td>Connection</td>
-                                            <td>String</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td>Upgrade</td>
-                                            <td>String</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td>Sec-WebSocket-Accept</td>
-                                            <td>String</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -2706,8 +2643,7 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
         try {
-            'String' result = apiInstance.apiV1PassedGetAllGet();
-            System.out.println(result);
+            apiInstance.apiV1PassedGetAllGet();
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1PassedGetAllGet");
             e.printStackTrace();
@@ -2724,8 +2660,7 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
         try {
-            'String' result = apiInstance.apiV1PassedGetAllGet();
-            System.out.println(result);
+            apiInstance.apiV1PassedGetAllGet();
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1PassedGetAllGet");
             e.printStackTrace();
@@ -2742,10 +2677,7 @@ public class DefaultApiExample {
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 [apiInstance apiV1PassedGetAllGetWithCompletionHandler: 
-              ^('String' output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
+              ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -2761,7 +2693,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.apiV1PassedGetAllGet(callback);
@@ -2789,8 +2721,7 @@ namespace Example
 
             try
             {
-                'String' result = apiInstance.apiV1PassedGetAllGet();
-                Debug.WriteLine(result);
+                apiInstance.apiV1PassedGetAllGet();
             }
             catch (Exception e)
             {
@@ -2809,8 +2740,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $api_instance = new Swagger\Client\ApiDefaultApi();
 
 try {
-    $result = $api_instance->apiV1PassedGetAllGet();
-    print_r($result);
+    $api_instance->apiV1PassedGetAllGet();
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->apiV1PassedGetAllGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -2825,8 +2755,7 @@ use WWW::SwaggerClient::DefaultApi;
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 
 eval { 
-    my $result = $api_instance->apiV1PassedGetAllGet();
-    print Dumper($result);
+    $api_instance->apiV1PassedGetAllGet();
 };
 if ($@) {
     warn "Exception when calling DefaultApi->apiV1PassedGetAllGet: $@\n";
@@ -2844,8 +2773,7 @@ from pprint import pprint
 api_instance = swagger_client.DefaultApi()
 
 try: 
-    api_response = api_instance.api_v1_passed_get_all_get()
-    pprint(api_response)
+    api_instance.api_v1_passed_get_all_get()
 except ApiException as e:
     print("Exception when calling DefaultApi->apiV1PassedGetAllGet: %s\n" % e)</code></pre>
                             </div>
@@ -2878,7 +2806,6 @@ except ApiException as e:
   "content" : {
     "text/plain" : {
       "schema" : {
-        "type" : "string",
         "x-content-type" : "text/plain"
       },
       "examples" : {
@@ -2969,8 +2896,7 @@ public class DefaultApiExample {
         DefaultApi apiInstance = new DefaultApi();
         PassedReq body = ; // PassedReq | 
         try {
-            array['Integer'] result = apiInstance.apiV1PassedGetGet(body);
-            System.out.println(result);
+            apiInstance.apiV1PassedGetGet(body);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1PassedGetGet");
             e.printStackTrace();
@@ -2988,8 +2914,7 @@ public class DefaultApiExample {
         DefaultApi apiInstance = new DefaultApi();
         PassedReq body = ; // PassedReq | 
         try {
-            array['Integer'] result = apiInstance.apiV1PassedGetGet(body);
-            System.out.println(result);
+            apiInstance.apiV1PassedGetGet(body);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1PassedGetGet");
             e.printStackTrace();
@@ -3007,10 +2932,7 @@ public class DefaultApiExample {
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 [apiInstance apiV1PassedGetGetWith:body
-              completionHandler: ^(array['Integer'] output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
+              completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -3028,7 +2950,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.apiV1PassedGetGet(body, callback);
@@ -3057,8 +2979,7 @@ namespace Example
 
             try
             {
-                array['Integer'] result = apiInstance.apiV1PassedGetGet(body);
-                Debug.WriteLine(result);
+                apiInstance.apiV1PassedGetGet(body);
             }
             catch (Exception e)
             {
@@ -3078,8 +2999,7 @@ $api_instance = new Swagger\Client\ApiDefaultApi();
 $body = ; // PassedReq | 
 
 try {
-    $result = $api_instance->apiV1PassedGetGet($body);
-    print_r($result);
+    $api_instance->apiV1PassedGetGet($body);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->apiV1PassedGetGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -3095,8 +3015,7 @@ my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 my $body = WWW::SwaggerClient::Object::PassedReq->new(); # PassedReq | 
 
 eval { 
-    my $result = $api_instance->apiV1PassedGetGet(body => $body);
-    print Dumper($result);
+    $api_instance->apiV1PassedGetGet(body => $body);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->apiV1PassedGetGet: $@\n";
@@ -3115,8 +3034,7 @@ api_instance = swagger_client.DefaultApi()
 body =  # PassedReq | 
 
 try: 
-    api_response = api_instance.api_v1_passed_get_get(body)
-    pprint(api_response)
+    api_instance.api_v1_passed_get_get(body)
 except ApiException as e:
     print("Exception when calling DefaultApi->apiV1PassedGetGet: %s\n" % e)</code></pre>
                             </div>
@@ -3192,9 +3110,7 @@ except ApiException as e:
   "content" : {
     "*/*" : {
       "schema" : {
-        "type" : "array",
         "items" : {
-          "type" : "integer",
           "format" : "int32"
         },
         "x-content-type" : "*/*"
@@ -3505,7 +3421,6 @@ except ApiException as e:
   "content" : {
     "*/*" : {
       "schema" : {
-        "type" : "string",
         "x-content-type" : "*/*"
       },
       "examples" : {
@@ -3642,8 +3557,7 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
         try {
-            'String' result = apiInstance.apiV1UserDeleteDelete();
-            System.out.println(result);
+            apiInstance.apiV1UserDeleteDelete();
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1UserDeleteDelete");
             e.printStackTrace();
@@ -3660,8 +3574,7 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
         try {
-            'String' result = apiInstance.apiV1UserDeleteDelete();
-            System.out.println(result);
+            apiInstance.apiV1UserDeleteDelete();
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1UserDeleteDelete");
             e.printStackTrace();
@@ -3678,10 +3591,7 @@ public class DefaultApiExample {
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 [apiInstance apiV1UserDeleteDeleteWithCompletionHandler: 
-              ^('String' output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
+              ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -3697,7 +3607,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.apiV1UserDeleteDelete(callback);
@@ -3725,8 +3635,7 @@ namespace Example
 
             try
             {
-                'String' result = apiInstance.apiV1UserDeleteDelete();
-                Debug.WriteLine(result);
+                apiInstance.apiV1UserDeleteDelete();
             }
             catch (Exception e)
             {
@@ -3745,8 +3654,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $api_instance = new Swagger\Client\ApiDefaultApi();
 
 try {
-    $result = $api_instance->apiV1UserDeleteDelete();
-    print_r($result);
+    $api_instance->apiV1UserDeleteDelete();
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->apiV1UserDeleteDelete: ', $e->getMessage(), PHP_EOL;
 }
@@ -3761,8 +3669,7 @@ use WWW::SwaggerClient::DefaultApi;
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 
 eval { 
-    my $result = $api_instance->apiV1UserDeleteDelete();
-    print Dumper($result);
+    $api_instance->apiV1UserDeleteDelete();
 };
 if ($@) {
     warn "Exception when calling DefaultApi->apiV1UserDeleteDelete: $@\n";
@@ -3780,8 +3687,7 @@ from pprint import pprint
 api_instance = swagger_client.DefaultApi()
 
 try: 
-    api_response = api_instance.api_v1_user_delete_delete()
-    pprint(api_response)
+    api_instance.api_v1_user_delete_delete()
 except ApiException as e:
     print("Exception when calling DefaultApi->apiV1UserDeleteDelete: %s\n" % e)</code></pre>
                             </div>
@@ -3814,7 +3720,6 @@ except ApiException as e:
   "content" : {
     "*/*" : {
       "schema" : {
-        "type" : "string",
         "x-content-type" : "*/*"
       },
       "examples" : {
@@ -3846,6 +3751,257 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-apiV1UserDeleteDelete-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-apiV1UserGetGet">
+                      <article id="api-Default-apiV1UserGetGet-0" data-group="User" data-name="apiV1UserGetGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>apiV1UserGetGet</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/user/get</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-apiV1UserGetGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-apiV1UserGetGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-apiV1UserGetGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-apiV1UserGetGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-apiV1UserGetGet-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+-H "Accept: text/plain"\
+"https://FitBattle/api/v1/user/get"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.apiV1UserGetGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#apiV1UserGetGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.apiV1UserGetGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#apiV1UserGetGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+[apiInstance apiV1UserGetGetWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FitBattleApi = require('fit_battle_api');
+
+var api = new FitBattleApi.DefaultApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.apiV1UserGetGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class apiV1UserGetGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                apiInstance.apiV1UserGetGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.apiV1UserGetGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiDefaultApi();
+
+try {
+    $api_instance->apiV1UserGetGet();
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->apiV1UserGetGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    $api_instance->apiV1UserGetGet();
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->apiV1UserGetGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-apiV1UserGetGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    api_instance.api_v1_user_get_get()
+except ApiException as e:
+    print("Exception when calling DefaultApi->apiV1UserGetGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-apiV1UserGetGet-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-apiV1UserGetGet-200-schema">
+                                  <div id='responses-apiV1UserGetGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "OK",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "x-content-type" : "text/plain"
+      },
+      "examples" : {
+        "Example#1" : {
+          "value" : "Get user"
+        }
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["text/plain"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-apiV1UserGetGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-apiV1UserGetGet-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-apiV1UserGetGet-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -4128,7 +4284,6 @@ except ApiException as e:
   "content" : {
     "*/*" : {
       "schema" : {
-        "type" : "string",
         "x-content-type" : "*/*"
       },
       "examples" : {
@@ -4265,8 +4420,7 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
         try {
-            'String' result = apiInstance.apiV1UserLogoutPost();
-            System.out.println(result);
+            apiInstance.apiV1UserLogoutPost();
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1UserLogoutPost");
             e.printStackTrace();
@@ -4283,8 +4437,7 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
         try {
-            'String' result = apiInstance.apiV1UserLogoutPost();
-            System.out.println(result);
+            apiInstance.apiV1UserLogoutPost();
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#apiV1UserLogoutPost");
             e.printStackTrace();
@@ -4301,10 +4454,7 @@ public class DefaultApiExample {
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 [apiInstance apiV1UserLogoutPostWithCompletionHandler: 
-              ^('String' output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
+              ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -4320,7 +4470,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.apiV1UserLogoutPost(callback);
@@ -4348,8 +4498,7 @@ namespace Example
 
             try
             {
-                'String' result = apiInstance.apiV1UserLogoutPost();
-                Debug.WriteLine(result);
+                apiInstance.apiV1UserLogoutPost();
             }
             catch (Exception e)
             {
@@ -4368,8 +4517,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $api_instance = new Swagger\Client\ApiDefaultApi();
 
 try {
-    $result = $api_instance->apiV1UserLogoutPost();
-    print_r($result);
+    $api_instance->apiV1UserLogoutPost();
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->apiV1UserLogoutPost: ', $e->getMessage(), PHP_EOL;
 }
@@ -4384,8 +4532,7 @@ use WWW::SwaggerClient::DefaultApi;
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 
 eval { 
-    my $result = $api_instance->apiV1UserLogoutPost();
-    print Dumper($result);
+    $api_instance->apiV1UserLogoutPost();
 };
 if ($@) {
     warn "Exception when calling DefaultApi->apiV1UserLogoutPost: $@\n";
@@ -4403,8 +4550,7 @@ from pprint import pprint
 api_instance = swagger_client.DefaultApi()
 
 try: 
-    api_response = api_instance.api_v1_user_logout_post()
-    pprint(api_response)
+    api_instance.api_v1_user_logout_post()
 except ApiException as e:
     print("Exception when calling DefaultApi->apiV1UserLogoutPost: %s\n" % e)</code></pre>
                             </div>
@@ -4437,7 +4583,6 @@ except ApiException as e:
   "content" : {
     "*/*" : {
       "schema" : {
-        "type" : "string",
         "x-content-type" : "*/*"
       },
       "examples" : {
