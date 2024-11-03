@@ -1,3 +1,8 @@
+# 実行方法
+1. DockerでDBサーバーを構築する。`docker compose up -d`をコマンドラインで実行して、コンテナを作成する
+2. server/src/main/kotlin/org/example/project/Application.ktにある`main`関数を実行する
+
+
 # サーバーサイド
 使用技術
 - 言語:Kotlin "2.0.20"
