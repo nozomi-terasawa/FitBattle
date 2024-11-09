@@ -21,6 +21,7 @@ import org.example.project.usecases.fitness.GetFitnessUseCase
 import org.example.project.usecases.fitness.SaveFitnessUseCase
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
+import org.example.project.usecases.location.FetchGeoFenceUseCase
 import org.example.project.usecases.passed.TodayPassedUserGetUseCase
 import org.example.project.usecases.user.UserCreateUseCase
 import org.example.project.usecases.user.UserDeleteUseCase
@@ -84,6 +85,7 @@ fun Application.module() {
     // ジオフェンス関係のUseCaseをDI
     val entryGeofenceUseCase = EntryGeofenceUseCase(geoFenceRepository)
     val exitFeoFenceUseCase = ExitFeoFenceUseCase(geoFenceRepository)
+    val fetchGeoFenceUseCase = FetchGeoFenceUseCase(geoFenceRepository)
 
     // フィットネス関係のUseCaseをDI
     val saveFitnessUseCase = SaveFitnessUseCase(fitnessRepository)
@@ -103,6 +105,7 @@ fun Application.module() {
         geoFenceRoutes(
             entryGeofenceUseCase = entryGeofenceUseCase,
             exitFeoFenceUseCase = exitFeoFenceUseCase,
+            fetchGeoFenceUseCase = fetchGeoFenceUseCase
         )
         fitnessRoutes(
             saveFitnessUseCase = saveFitnessUseCase,

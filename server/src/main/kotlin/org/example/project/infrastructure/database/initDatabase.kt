@@ -31,23 +31,43 @@ fun initDatabase() {
                 }
             }
             GeoFenceTable.insert {
-                it[name] = "Tokyo"
-                it[latitude] = 35.681236
-                it[longitude] = 139.767125
-                it[radius] = 100.0
+                it[name] = "スマプロ本部"
+                it[latitude] = 36.528741
+                it[longitude] = 136.628184
+                it[radius] = 100f
             }
             GeoFenceTable.insert {
-                it[name] = "Osaka"
-                it[latitude] = 34.693737
-                it[longitude] = 135.502165
-                it[radius] = 100.0
+                it[name] = "金沢工業大学"
+                it[latitude] = 36.530455
+                it[longitude] = 136.627746
+                it[radius] = 100f
             }
             GeoFenceTable.insert {
-                it[name] = "Nagoya"
-                it[latitude] = 35.181467
-                it[longitude] = 136.906398
-                it[radius] = 100.0
+                it[name] = "金沢南総合運動公園"
+                it[latitude] = 36.539305
+                it[longitude] = 136.642862
+                it[radius] = 100f
             }
+            GeoFenceTable.insert {
+                it[name] = "金沢市総合体育館"
+                it[latitude] = 36.539971
+                it[longitude] = 136.650184
+                it[radius] = 100f
+            }
+            GeoFenceTable.insert {
+                it[name] = "久安運動広場"
+                it[latitude] = 36.533278
+                it[longitude] = 136.630635
+                it[radius] = 100f
+            }
+
+            GeoFenceTable.insert {
+                it[name] = "額谷運動広場"
+                it[latitude] = 36.509345
+                it[longitude] = 136.629287
+                it[radius] = 100f
+            }
+
             GeoFenceEntryLogTable.insert {
                 it[userId] = 1
                 it[geoFenceId] = 2

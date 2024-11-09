@@ -12,6 +12,7 @@ import org.example.project.infrastructure.serializationData.EntryGeoFenceReq
 import org.example.project.infrastructure.serializationData.ExitFeoFenceReq
 import org.example.project.usecases.location.EntryGeofenceUseCase
 import org.example.project.usecases.location.ExitFeoFenceUseCase
+import org.example.project.usecases.location.FetchGeoFenceUseCase
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
@@ -21,10 +22,15 @@ import java.util.concurrent.ConcurrentHashMap
 fun Routing.geoFenceRoutes(
     entryGeofenceUseCase: EntryGeofenceUseCase,
     exitFeoFenceUseCase: ExitFeoFenceUseCase,
+    fetchGeoFenceUseCase: FetchGeoFenceUseCase
 ) {
     route("/api/v1/location") {
         // JTW認証が必要
         authenticate("auth-jwt") {
+            get("/geofence") {
+                val res = fetchGeoFenceUseCase()
+                call.respond(message = res)
+            }
             post("/geofence/entry") {
                 val info = call.receive<EntryGeoFenceReq>()
                 val res = entryGeofenceUseCase(info)

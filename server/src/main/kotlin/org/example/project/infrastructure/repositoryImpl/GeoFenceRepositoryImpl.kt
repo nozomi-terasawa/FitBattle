@@ -2,9 +2,12 @@ package org.example.project.infrastructure.repositoryImpl
 
 import org.example.project.domain.entities.location.EntryGeoFence
 import org.example.project.domain.entities.location.ExitGeoFence
+import org.example.project.domain.entities.location.GeoFenceInfo
 import org.example.project.domain.repository.GeoFenceRepository
 import org.example.project.infrastructure.database.GeoFenceEntryLogTable
+import org.example.project.infrastructure.database.GeoFenceTable
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
@@ -38,5 +41,26 @@ class GeoFenceRepositoryImpl : GeoFenceRepository {
             return false
         }
         return true
+    }
+
+    override fun fetchGeoFenceInfo(): List<GeoFenceInfo> {
+        try {
+            var list: List<GeoFenceInfo> = emptyList()
+            transaction {
+                list = GeoFenceTable.selectAll().map {
+                    GeoFenceInfo(
+                        id = it[GeoFenceTable.id],
+                        name = it[GeoFenceTable.name],
+                        latitude = it[GeoFenceTable.latitude],
+                        longitude = it[GeoFenceTable.longitude],
+                        radius = it[GeoFenceTable.radius],
+                    )
+                }
+            }
+            return list
+        }catch (e: Exception) {
+            println("Error: $e")
+            return emptyList()
+        }
     }
 }

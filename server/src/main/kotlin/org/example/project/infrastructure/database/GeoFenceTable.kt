@@ -7,6 +7,6 @@ object GeoFenceTable : Table() {
     val name = varchar("name", length = 50).uniqueIndex()
     val latitude = double("latitude")
     val longitude = double("longitude")
-    val radius = double("radius")
+    val radius = float("radius")
     override val primaryKey = PrimaryKey(id)
 }
